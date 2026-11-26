@@ -79,14 +79,21 @@
 <div class="ph"><img src="/img/540387a943d9/5-480.jpg" alt="Tissot Lady Heart" loading="lazy"></div>
 <div class="tx"><div class="br">Tissot</div><h3>Lady Heart</h3><span class="price">14.xxxk</span></div></a><a class="card" href="/p/franklin-fl5220-58795d/" data-c="dongho" data-g="nu" data-b="Franklin" data-k="3050">
 <div class="ph"><img src="/img/58795d157c72/1-480.jpg" alt="Franklin FL5220" loading="lazy"></div>
-<div class="tx"><div class="br">Franklin</div><h3>FL5220</h3><span class="price">3.xxxk</span></div></a></div><p class="empty" id="empty">Chưa có mẫu phù hợp – nhắn shop để được tìm mẫu ạ.</p></div>
+<div class="tx"><div class="br">Franklin</div><h3>FL5220</h3><span class="price">3.xxxk</span></div></a></div><nav class="pager" id="pager"></nav><p class="empty" id="empty">Chưa có mẫu phù hợp – nhắn shop để được tìm mẫu ạ.</p></div>
 <script>
 let g=location.hash.slice(1)||'all',cat='';const B=document.getElementById('brand'),P=document.getElementById('price');
-function apply(){let n=0;const [lo,hi]=(P.value||'0-99999999').split('-').map(Number);
-document.querySelectorAll('.card').forEach(c=>{const ok=(!cat||c.dataset.c==cat)&&(g=='all'||c.dataset.g==g||c.dataset.g=='unisex')&&(!B.value||c.dataset.b==B.value)&&(+c.dataset.k>=lo&&+c.dataset.k<hi);c.style.display=ok?'':'none';n+=ok});
+const PER=10;let pg=1;
+function apply(keep){if(!keep)pg=1;let n=0;const [lo,hi]=(P.value||'0-99999999').split('-').map(Number);
+document.querySelectorAll('.card').forEach(c=>{const ok=(!cat||c.dataset.c==cat)&&(g=='all'||c.dataset.g==g||c.dataset.g=='unisex')&&(!B.value||c.dataset.b==B.value)&&(+c.dataset.k>=lo&&+c.dataset.k<hi);
+if(ok)n++;c.style.display=ok&&n>(pg-1)*PER&&n<=pg*PER?'':'none'});
+const np=Math.ceil(n/PER),pr=document.getElementById('pager');let h='';
+if(np>1){h+=`<button class="chip" ${pg==1?'disabled':''} data-p="${pg-1}">‹</button>`;
+for(let i=1;i<=np;i++)if(i==1||i==np||Math.abs(i-pg)<=1)h+=`<button class="chip${i==pg?' on':''}" data-p="${i}">${i}</button>`;else if(Math.abs(i-pg)==2)h+='<span>…</span>';
+h+=`<button class="chip" ${pg==np?'disabled':''} data-p="${pg+1}">›</button>`}
+pr.innerHTML=h;pr.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{pg=+b.dataset.p;apply(1);document.querySelector('.filters').scrollIntoView({behavior:'smooth'})});
 document.getElementById('empty').style.display=n?'none':'block';document.querySelectorAll('[data-f]').forEach(b=>b.classList.toggle('on',b.dataset.f==g))}
 document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{g=b.dataset.f;history.replaceState(null,'',g=='all'?'/':'#'+g);apply()});
-B.onchange=P.onchange=apply;
+B.onchange=P.onchange=()=>apply();
 document.querySelectorAll('.cat').forEach(b=>b.onclick=()=>{cat=cat==b.dataset.c?'':b.dataset.c;document.querySelectorAll('.cat').forEach(x=>x.classList.toggle('on',x.dataset.c==cat));apply()});window.onhashchange=()=>{g=location.hash.slice(1)||'all';apply()};apply();
 </script>
 <footer><div class="wrap">

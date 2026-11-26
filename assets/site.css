@@ -18,6 +18,7 @@ nav a{margin-left:22px;font-size:14px;color:var(--brown);font-weight:500}
 .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 16px;font-size:14px;cursor:pointer;color:var(--brown);font-family:inherit}
 .cats{padding-bottom:0}.cats .chip{font-weight:600;padding:9px 20px}
 .chip.on{background:var(--tan);border-color:var(--tan);color:#fff}
+.pager{display:flex;gap:8px;justify-content:center;align-items:center;margin:28px 0 8px;flex-wrap:wrap}.pager .chip{min-width:42px}.pager .chip[disabled]{opacity:.35;cursor:default}
 select.chip{appearance:none;padding-right:16px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:22px;padding:22px 0 60px}
 .card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:.2s}
